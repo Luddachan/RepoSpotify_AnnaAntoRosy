@@ -6,7 +6,7 @@ Il nostro gruppo si propone di analizzare il dataset Spotify per esplorare e com
 
 Gli obiettivi principali sono:
 
-- Analizzare la distribuzione dei generi musicali e l’evoluzione temporale delle pubblicazioni.
+- Analizzare la distribuzione dei generi più popolari per country
 - Studiare la relazione tra caratteristiche audio dei brani (ad esempio: `danceability`, `energy`, `tempo`, `instrumentalness`) e popolarità.
 - Valutare la distribuzione dei brani espliciti vs non espliciti e la loro popolarità.
 - Analizzare i principali paesi di streaming e il contributo degli artisti e delle etichette discografiche.
