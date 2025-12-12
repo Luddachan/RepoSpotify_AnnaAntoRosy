@@ -2,15 +2,18 @@
 
 ## 1. Obiettivi del progetto
 
-Il nostro gruppo si propone di analizzare il dataset Spotify per esplorare e comprendere le caratteristiche dei brani musicali e la loro relazione con la popolarità.
+## 🎯 Obiettivi del Progetto
 
-Gli obiettivi principali sono:
+Il progetto ha l’obiettivo di analizzare il dataset **Spotify 2015–2025** per identificare pattern, relazioni e fattori che influenzano la popolarità dei brani musicali.  
+In particolare, l’analisi si concentra su:
 
-- Analizzare la distribuzione dei generi più popolari per country
-- Studiare la relazione tra caratteristiche audio dei brani (ad esempio: `danceability`, `energy`, `tempo`, `instrumentalness`) e popolarità.
-- Valutare la distribuzione dei brani espliciti vs non espliciti e la loro popolarità.
-- Analizzare i principali paesi di streaming e il contributo degli artisti e delle etichette discografiche.
-- Produrre visualizzazioni chiare e intuitive per supportare l’analisi.
+- **Esplorazione della distribuzione dei generi musicali nei diversi Paesi**, identificando i generi più rappresentativi per area geografica.
+- **Studio delle principali audio-features** (*danceability*, *energy*, *tempo*, *instrumentalness*, *valence*) e della loro correlazione con il punteggio di popolarità.
+- **Analisi dell’impatto del contenuto esplicito** sulla popolarità, confrontando brani *explicit* e *non explicit*.
+- **Esplorazione del ruolo di artisti ed etichette discografiche** nella diffusione e nel successo dei brani.
+- **Produzione di visualizzazioni chiare e interpretative** per supportare l’identificazione di trend, outlier e comportamenti ricorrenti nel dataset.
+- **Preparazione dei dati per modelli predittivi di Machine Learning**, attraverso pulizia, trasformazione e selezione delle variabili più informative.
+
 
 ## 2. Deliverable del progetto
 

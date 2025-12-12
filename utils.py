@@ -23,9 +23,9 @@ def get_valid_input(prompt, min_val, max_val):
             value = float(input(prompt))
             if min_val <= value <= max_val:
                 return value
-            print(f"⚠️  Valore deve essere tra {min_val} e {max_val}")
+            print(f"Valore deve essere tra {min_val} e {max_val}")
         except ValueError:
-            print("⚠️  Inserisci un numero valido")
+            print("Inserisci un numero valido")
         except KeyboardInterrupt:
             raise
 
@@ -108,11 +108,11 @@ def predici_popolarita_interattiva(df, X_columns, preprocessor, final_system):
     
     if len(X_columns_available) < len(X_columns):
         missing = len(X_columns) - len(X_columns_available)
-        print(f"⚠️  {missing} colonne non trovate nel dataset (verranno ignorate)")
+        print(f"{missing} colonne non trovate nel dataset (verranno ignorate)")
     
     # Mostra colonne disponibili
     available = get_available_columns(df)
-    print(f"📊 Dataset ha {len(available['numerical'])} colonne numeriche e {len(available['categorical'])} categoriche")
+    print(f"Dataset ha {len(available['numerical'])} colonne numeriche e {len(available['categorical'])} categoriche")
     
     # Input utente con validazione
     try:
@@ -142,15 +142,15 @@ def predici_popolarita_interattiva(df, X_columns, preprocessor, final_system):
                 user_inputs['dance_energy_ratio'] = user_inputs['danceability'] / (user_inputs['energy'] + 1e-5)
         
     except KeyboardInterrupt:
-        print("\n⚠️  Operazione annullata.")
+        print("\nOperazione annullata.")
         return
     except Exception as e:
-        print(f"\n❌ Errore nell'input: {e}")
+        print(f"\nErrore nell'input: {e}")
         return
     
     # STRATEGIA: Usa una riga del dataset come template
     try:
-        print("\n🔄 Creazione input basato su template del dataset...")
+        print("\n Creazione input basato su template del dataset...")
         
         # Prendi una riga casuale come template (USA SOLO COLONNE DISPONIBILI)
         template = df.sample(1)[X_columns_available].copy().reset_index(drop=True)
@@ -168,31 +168,31 @@ def predici_popolarita_interattiva(df, X_columns, preprocessor, final_system):
         # Riordina secondo X_columns
         template = template[X_columns]
         
-        print("✅ Input creato")
+        print(" Input creato")
         
         # Trasforma e predici
-        print("🔄 Trasformazione dati...")
+        print(" Trasformazione dati...")
         df_input_pre = preprocessor.transform(template)
         
-        print("🔄 Predizione...")
+        print(" Predizione...")
         pred = final_system.predict(df_input_pre)[0]
         pred = max(0, min(100, pred))
         
-        print(f"\n✅ Predizione popolarità stimata: {pred:.2f}/100")
+        print(f"\n Predizione popolarità stimata: {pred:.2f}/100")
         
         # Feedback qualitativo
         if pred >= 80:
-            print("🔥 Potenziale HIT!")
+            print(" Potenziale HIT!")
         elif pred >= 60:
-            print("🎵 Buone possibilità di successo")
+            print(" Buone possibilità di successo")
         elif pred >= 40:
-            print("📻 Popolarità media")
+            print(" Popolarità media")
         else:
-            print("💤 Probabile bassa popolarità")
+            print(" Probabile bassa popolarità")
             
     except Exception as e:
-        print(f"\n❌ Errore durante la predizione: {e}")
-        print("\n💡 Suggerimenti:")
+        print(f"\n Errore durante la predizione: {e}")
+        print("\n Suggerimenti:")
         print("   1. Esegui: python fix_columns.py")
         print("   2. Oppure rigenera i file .pkl da ml.ipynb")
         import traceback
@@ -202,28 +202,28 @@ def predici_popolarita_interattiva(df, X_columns, preprocessor, final_system):
 def paesi_hit(df, soglia_hit=80):
     """Mostra i top 10 paesi con più hit."""
     if 'popularity' not in df.columns:
-        print("❌ Colonna 'popularity' non trovata nel dataset")
+        print(" Colonna 'popularity' non trovata nel dataset")
         return
     
     if 'country' not in df.columns:
-        print("❌ Colonna 'country' non trovata nel dataset")
+        print(" Colonna 'country' non trovata nel dataset")
         # Prova con altre colonne simili
         possible_cols = [col for col in df.columns if 'country' in col.lower() or 'nation' in col.lower()]
         if possible_cols:
-            print(f"💡 Trovate colonne alternative: {possible_cols}")
+            print(f" Trovate colonne alternative: {possible_cols}")
         return
     
     hits = df[df['popularity'] >= soglia_hit]
     
     if len(hits) == 0:
-        print(f"⚠️  Nessuna traccia trovata con popolarità >= {soglia_hit}")
+        print(f"  Nessuna traccia trovata con popolarità >= {soglia_hit}")
         max_pop = df['popularity'].max()
-        print(f"💡 Popolarità massima nel dataset: {max_pop:.2f}")
+        print(f" Popolarità massima nel dataset: {max_pop:.2f}")
         return
     
     top_paesi = hits['country'].value_counts().head(10)
     
-    print(f"\n🌍 Top 10 Paesi con più hit (pop >= {soglia_hit}):")
+    print(f"\n Top 10 Paesi con più hit (pop >= {soglia_hit}):")
     for i, (paese, count) in enumerate(top_paesi.items(), 1):
         print(f"  {i:2d}. {paese:20s}: {count:4d} tracce")
     
@@ -272,10 +272,10 @@ def genera_traccia_casuale(df, X_columns):
 def generatore_hit(df, X_columns, preprocessor, final_system, n=1):
     """Genera N tracce casuali e predice la loro popolarità."""
     if n < 1 or n > 100:
-        print("⚠️  Genera tra 1 e 100 tracce")
+        print("  Genera tra 1 e 100 tracce")
         return
     
-    print(f"\n🎲 Generazione di {n} tracce casuali...")
+    print(f"\n Generazione di {n} tracce casuali...")
     
     tracce = []
     preds = []
@@ -296,17 +296,17 @@ def generatore_hit(df, X_columns, preprocessor, final_system, n=1):
             continue
     
     if not tracce:
-        print("❌ Nessuna traccia generata con successo")
+        print(" Nessuna traccia generata con successo")
         return
     
     success_rate = len(tracce) / n * 100
-    print(f"\n✅ {len(tracce)}/{n} tracce generate con successo ({success_rate:.1f}%)")
+    print(f"\n {len(tracce)}/{n} tracce generate con successo ({success_rate:.1f}%)")
     
     if errors > 0:
-        print(f"⚠️  {errors} errori durante la generazione")
+        print(f"  {errors} errori durante la generazione")
     
     # Statistiche
-    print(f"\n📊 Statistiche popolarità:")
+    print(f"\nStatistiche popolarità:")
     print(f"  • Media:    {np.mean(preds):.2f}")
     print(f"  • Mediana:  {np.median(preds):.2f}")
     print(f"  • Min/Max:  {np.min(preds):.2f} / {np.max(preds):.2f}")
@@ -321,7 +321,7 @@ def generatore_hit(df, X_columns, preprocessor, final_system, n=1):
     df_preds['predicted_popularity'] = preds
     
     display_limit = min(10, len(df_preds))
-    print(f"\n📋 Prime {display_limit} tracce:")
+    print(f"\n Prime {display_limit} tracce:")
     display(df_preds.head(display_limit)[['predicted_popularity'] + df_preds.columns[:5].tolist()])
     
     # Grafico
@@ -337,9 +337,7 @@ def generatore_hit(df, X_columns, preprocessor, final_system, n=1):
     plt.tight_layout()
     plt.show()
     
-# ========================================
-# AGGIUNGI QUESTE FUNZIONI ALLA FINE DI utils.py
-# ========================================
+
 
 from matplotlib.animation import FuncAnimation
 
@@ -348,7 +346,7 @@ def visualizza_predizioni_animate(df, X_columns, preprocessor, final_system, n_t
     Genera tracce casuali, predice la popolarità e crea un'animazione 
     che mostra le predizioni in tempo reale.
     """
-    print(f"\n🎬 Generazione di {n_tracce} tracce e visualizzazione animata...")
+    print(f"\n Generazione di {n_tracce} tracce e visualizzazione animata...")
     
     # --- GENERA TRACCE E PREDIZIONI ---
     tracce_data = []
@@ -374,10 +372,10 @@ def visualizza_predizioni_animate(df, X_columns, preprocessor, final_system, n_t
             continue
     
     if not tracce_data:
-        print("❌ Errore nella generazione delle tracce")
+        print(" Errore nella generazione delle tracce")
         return
     
-    print(f"✅ {len(tracce_data)} tracce generate con successo!")
+    print(f" {len(tracce_data)} tracce generate con successo!")
     
     # --- SETUP ANIMAZIONE ---
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
@@ -404,7 +402,7 @@ def visualizza_predizioni_animate(df, X_columns, preprocessor, final_system, n_t
     ax2.set_ylim(0, 100)
     ax2.set_xlabel('Traccia #', fontsize=12)
     ax2.set_ylabel('Popolarità', fontsize=12)
-    ax2.set_title('📊 Andamento Predizioni', fontsize=12, fontweight='bold')
+    ax2.set_title(' Andamento Predizioni', fontsize=12, fontweight='bold')
     ax2.grid(True, alpha=0.3)
     ax2.axhline(80, color='green', linestyle='--', linewidth=1, alpha=0.5)
     
@@ -470,7 +468,7 @@ def visualizza_predizioni_animate(df, X_columns, preprocessor, final_system, n_t
     preds = [t['pred'] for t in tracce_data]
     hits = sum(1 for p in preds if p >= 80)
     
-    print(f"\n📊 STATISTICHE FINALI:")
+    print(f"\n STATISTICHE FINALI:")
     print(f"   • Tracce analizzate: {len(tracce_data)}")
     print(f"   • Popolarità media: {np.mean(preds):.2f}")
     print(f"   • Hit potenziali (≥80): {hits} ({hits/len(preds)*100:.1f}%)")
@@ -497,10 +495,10 @@ def visualizza_onda_sonora_da_predizione(df, X_columns, preprocessor, final_syst
         loudness = df_traccia['loudness'].iloc[0] if 'loudness' in df_traccia.columns else -10
         
     except Exception as e:
-        print(f"❌ Errore: {e}")
+        print(f" Errore: {e}")
         return
     
-    print(f"✅ Traccia generata:")
+    print(f" Traccia generata:")
     print(f"   • Popolarità predetta: {pred:.1f}/100")
     print(f"   • Energy: {energy:.2f}")
     print(f"   • Danceability: {danceability:.2f}")
@@ -519,7 +517,7 @@ def visualizza_onda_sonora_da_predizione(df, X_columns, preprocessor, final_syst
     # Velocità animazione basata su energy
     velocita = 0.1 + energy * 0.4  # Range: 0.1-0.5
     
-    print(f"\n🔊 Parametri onda:")
+    print(f"\n Parametri onda:")
     print(f"   • Ampiezza: {ampiezza:.2f} (da popolarità)")
     print(f"   • Frequenza: {frequenza:.1f} Hz (da energy)")
     print(f"   • Armoniche: {n_armoniche} (da danceability)")
@@ -572,8 +570,8 @@ def visualizza_onda_sonora_da_predizione(df, X_columns, preprocessor, final_syst
     
     # Feedback finale
     if pred >= 80:
-        print("\n🔥 Questa traccia ha il potenziale per essere un HIT!")
+        print("\n Questa traccia ha il potenziale per essere un HIT!")
     elif pred >= 60:
-        print("\n🎵 Buone vibrazioni! Popolarità interessante.")
+        print("\n Buone vibrazioni! Popolarità interessante.")
     else:
-        print("\n📻 Onda tranquilla, popolarità moderata.")
+        print("\n Onda tranquilla, popolarità moderata.")
