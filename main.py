@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# main.py - VERSIONE COMPLETA CON ANIMAZIONI
+
 
 from utils import (
     predici_popolarita_interattiva, 
